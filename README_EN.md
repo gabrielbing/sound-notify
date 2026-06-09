@@ -147,36 +147,86 @@ Built-in language packs:
 
 ---
 
-## 📦 Install to AI Agents
+## 📦 Integration with AI Agents
 
-### WorkBuddy
+This tool can be integrated into **any AI Agent** that supports executing shell commands or Python scripts.
 
-Upload `sound-notify.zip` to the skills page, ready to use out of the box.
+### Generic Integration (All Agents)
 
-### Claude Code / Cursor / Windsurf / Any Agent
+**Prerequisites:**
+- Python 3.6+ installed
+- `edge-tts` installed (optional, for better voice quality): `pip install edge-tts`
+- `notify.py` script accessible from your Agent's working directory
 
-Can be called anywhere that can execute shell commands:
+**Basic Usage:**
 
 ```bash
-python /path/to/scripts/notify.py done --edge
+# Direct command execution
+python /path/to/notify.py done --edge
+
+# Or add to system PATH for simpler usage
+notify done --edge
 ```
 
-In your Agent config, bind these events:
+**Binding to Agent Events:**
 
-| Hook Event | Command |
-|------------|---------|
+Most AI Agents support hook/trigger configuration. Bind these events to `notify.py`:
+
+| Agent Event | Notify Command |
+|-------------|---------------|
 | Task completed / Stop | `python notify.py done --edge` |
 | Permission requested | `python notify.py perm --edge` |
 | Confirmation needed | `python notify.py confirm --edge` |
+| Alert / Warning | `python notify.py alert --edge` |
+| Daily briefing | `python notify.py daily --edge` |
+| Long task processing | `python notify.py thinking --edge` |
+
+### Example: Using with Shell Commands
+
+```bash
+# In your Agent's config or hook script
+python /path/to/notify.py done --edge
+
+# With custom config
+python /path/to/notify.py --config /path/to/config.json done --edge
+
+# With specific voice
+python /path/to/notify.py done --edge --voice-name zh-CN-YunyangNeural
+```
 
 ### As Python Module
 
+You can also import `notify.py` as a module in your Python code:
+
 ```python
+import sys
+sys.path.append('/path/to/sound-notify/scripts')
 from notify import play_voice, play_beep_then_voice
 
-play_voice("done")                   # Offline voice
-play_beep_then_voice("perm", engine="edge")  # Online voice
+# Offline voice (system TTS)
+play_voice("done")
+
+# Online voice (Edge TTS)
+play_beep_then_voice("perm", engine="edge")
+
+# With custom text
+play_voice("done", text="✅ Your custom message here!")
 ```
+
+### Directory Structure for Integration
+
+```
+your-agent-project/
+├── agents/
+│   └── hooks/
+│       └── on_task_complete.sh  # Calls notify.py
+├── scripts/
+│   └── notify.py  # Copy from this repo
+└── config/
+    └── sound-notify.json  # Optional config file
+```
+
+> 💡 **Tip:** For easiest integration, add `notify.py` to your system PATH or your Agent's scripts directory.
 
 ---
 
