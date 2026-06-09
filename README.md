@@ -1,6 +1,6 @@
 # sound-notify
 
-🔊 Sound Notify — 通用 AI Agent 声音提醒工具 (Windows, Python, 离线/在线双引擎)
+🔊 Sound Notify — 通用 AI Agent 声音提醒工具 (Windows / macOS / Linux, Python, 离线/在线双引擎)
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-blue.svg)](https://www.microsoft.com/windows)
