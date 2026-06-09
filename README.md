@@ -63,6 +63,10 @@ python scripts/notify.py test --voice
 
 ![Terminal Test](assets/terminal-screenshot.svg)
 
+** Demo 动画：**
+
+![Demo](assets/terminal-demo.svg)
+
 ### 3. 使用
 
 ```bash

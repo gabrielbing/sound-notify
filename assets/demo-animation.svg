@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Terminal window background -->
+  <rect x="0" y="0" width="800" height="600" fill="#1e1e1e" rx="8"/>
+  
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="30" fill="#323233" rx="8"/>
+  <circle cx="20" cy="15" r="6" fill="#ff5f57"/>
+  <circle cx="40" cy="15" r="6" fill="#ffbd2e"/>
+  <circle cx="60" cy="15" r="6" fill="#28ca42"/>
+  <text x="400" y="20" font-family="Consolas, monospace" font-size="13" fill="#cccccc" text-anchor="middle">Python - notify.py test --edge</text>
+  
+  <!-- Terminal content -->
+  <text x="20" y="60" font-family="Consolas, monospace" font-size="14" fill="#0dbc79">======================================================</text>
+  <text x="20" y="80" font-family="Consolas, monospace" font-size="14" fill="#0dbc79">  Sound Notify 🔔 全模式测试</text>
+  <text x="20" y="100" font-family="Consolas, monospace" font-size="14" fill="#0dbc79">  模式: Edge TTS (在线神经网络语音)</text>
+  <text x="20" y="120" font-family="Consolas, monospace" font-size="14" fill="#0dbc79">=======================================================</text>
+  
+  <text x="20" y="150" font-family="Consolas, monospace" font-size="14" fill="#cccccc">>>> 任务完成 (done)</text>
+  <text x="40" y="170" font-family="Consolas, monospace" font-size="14" fill="#569cd6">    语音: 搞定了，任务已完成。</text>
+  
+  <text x="20" y="210" font-family="Consolas, monospace" font-size="14" fill="#cccccc">>>> 每日推送 (daily)</text>
+  <text x="40" y="230" font-family="Consolas, monospace" font-size="14" fill="#569cd6">    语音: 这是您的每日推送。</text>
+  
+  <text x="20" y="270" font-family="Consolas, monospace" font-size="14" fill="#cccccc">>>> 等待确认 (confirm)</text>
+  <text x="40" y="290" font-family="Consolas, monospace" font-size="14" fill="#569cd6">    语音: 需要你确认一下。</text>
+  
+  <text x="20" y="330" font-family="Consolas, monospace" font-size="14" fill="#cccccc">>>> 权限请求 (perm)</text>
+  <text x="40" y="350" font-family="Consolas, monospace" font-size="14" fill="#569cd6">    语音: 需要你的授权才能继续。</text>
+  
+  <text x="20" y="390" font-family="Consolas, monospace" font-size="14" fill="#cccccc">>>> 警告提醒 (alert)</text>
+  <text x="40" y="410" font-family="Consolas, monospace" font-size="14" fill="#569cd6">    语音: 请注意，一条重要的提醒。</text>
+  
+  <text x="20" y="450" font-family="Consolas, monospace" font-size="14" fill="#cccccc">>>> 思考中 (thinking)</text>
+  <text x="40" y="470" font-family="Consolas, monospace" font-size="14" fill="#569cd6">    语音: 我还在思考，请稍微等一下。</text>
+  
+  <text x="20" y="510" font-family="Consolas, monospace" font-size="14" fill="#0dbc79">=======================================================</text>
+  <text x="20" y="530" font-family="Consolas, monospace" font-size="14" fill="#0dbc79">  测试完成！</text>
+  <text x="20" y="550" font-family="Consolas, monospace" font-size="14" fill="#0dbc79">=======================================================</text>
+  
+  <!-- Blinking cursor animation -->
+  <rect x="20" y="560" width="10" height="17" fill="#cccccc">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Sound wave animation (appears at each voice line) -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0s"/>
+    <path d="M 100 165 Q 110 160 120 165 T 140 165" stroke="#4ec9b0" stroke-width="2" fill="none">
+      <animate attributeName="d" values="M 100 165 Q 110 160 120 165 T 140 165;M 100 165 Q 110 155 120 165 T 140 165;M 100 165 Q 110 160 120 165 T 140 165" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 100 165 Q 110 170 120 165 T 140 165" stroke="#4ec9b0" stroke-width="2" fill="none">
+      <animate attributeName="d" values="M 100 165 Q 110 170 120 165 T 140 165;M 100 165 Q 110 175 120 165 T 140 165;M 100 165 Q 110 170 120 165 T 140 165" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

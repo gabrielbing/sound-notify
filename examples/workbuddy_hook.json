@@ -1,0 +1,31 @@
+{
+  "scripts": {
+    "notify": "python /path/to/sound-notify/scripts/notify.py"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python scripts/notify.py done --edge",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python scripts/notify.py perm --edge",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
