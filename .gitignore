@@ -30,3 +30,7 @@ sound-cache/
 # Temporary files
 *.tmp
 *.temp
+
+# Logs
+debug.log
+*.log

@@ -1,80 +1,77 @@
-# sound-notify
+# 🔊 Sound Notify
 
-🔊 Sound Notify — 通用 AI Agent 声音提醒工具 (Windows / macOS / Linux, Python, 离线/在线双引擎)
+> 一个零依赖的 Windows 声音提醒脚本 —— 任务完成、需要确认、权限请求时，用温柔的人声提醒你。
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Platform: Windows](https://img.shields.io/badge/platform-Windows-blue.svg)](https://www.microsoft.com/windows)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org)
+[![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## 🖼️ 工作流程
+<p align="center">
+  <b>✨ 支持任意 AI Agent 平台</b> · WorkBuddy · Claude Code · Cursor · Windsurf · Copilot
+</p>
 
-![sound-notify 工作流程](assets/workflow-diagram.svg)
+---
 
-## ✨ 功能特点
+## 🎯 它能做什么
 
-| 功能 | 说明 |
-|------|------|
-| **🔊 人声播报** | 任务完成/需确认时使用 TTS 语音提醒，比系统提示音更自然 |
-| **⚡ 双引擎** | Edge TTS（在线神经语音）/ Windows SAPI（离线） |
-| **🌍 多语言** | 内置 `zh-CN` 和 `en-US` 两种语言包 |
-| **📋 6 种事件** | done / daily / confirm / perm / alert / thinking |
-| **⚙️ 零依赖** | 纯 Python + winsound，开箱即用 |
-| **📝 可配置** | 通过 `config.json` 自定义播报文案，无需改代码 |
+当你的 AI Agent 完成任务、需要你确认、或者请求权限时，自动播放人声提醒。你再也不用盯着屏幕等结果。
+
+| 事件 | 触发场景 | 播报内容 |
+|------|---------|----------|
+| `done` | 任务完成 | "搞定了，任务已完成。" |
+| `confirm` | 需要确认 | "需要你确认一下。" |
+| `perm` | 权限请求 | "需要你的授权才能继续。" |
+| `alert` | 紧急提醒 | "请注意，一条重要的提醒。" |
+| `daily` | 每日推送 | "这是您的每日推送。" |
+| `thinking` | 思考超时 | "我还在思考，请稍微等一下。" |
+
+---
+
+## 🎤 语音引擎
+
+| 引擎 | 音质 | 需要网络 | 需要安装 |
+|------|------|---------|---------|
+| **Edge TTS** ⭐ | 神经网络，自然温柔 | 首次需联网 | `pip install edge-tts` |
+| **SAPI** | 系统自带 | 否 | 无（Windows 内置） |
+
+默认使用 **Edge TTS + 云希**（温暖阳光男声），支持 8 种中文语音随时切换。
+
+---
 
 ## 🚀 快速开始
 
 ### 1. 安装
 
 ```bash
-# 下载脚本
-curl -O https://raw.githubusercontent.com/gabrielbing/sound-notify/main/scripts/notify.py
-
-# 安装 Edge TTS（推荐，音质更好）
+# 安装在线语音引擎（推荐，音质更好）
 pip install edge-tts
+
+# 或者直接用离线模式（无需安装任何依赖）
 ```
 
 ### 2. 测试
 
 ```bash
-# 使用 Edge TTS（需联网）
-python notify.py test --edge
+# 在线人声测试
+python scripts/notify.py test --edge
 
-# 使用 Windows SAPI（离线）
-python notify.py test --voice
+# 离线人声测试
+python scripts/notify.py test --voice
 ```
 
-## 📦 安装到各类 AI Agent
+** terminal 输出示例：**
 
-### WorkBuddy
+![Terminal Test](assets/terminal-screenshot.svg)
 
-下载 `sound-notify.zip`，在 WorkBuddy 技能页面上传即可。
+### 3. 使用
 
-### Claude Code / Cursor / 其他 Agent
-
-在 Hook 配置中调用 `notify.py`：
-
-```json
-{
-  "Stop": [{
-    "matcher": "*",
-    "hooks": [{
-      "type": "command",
-      "command": "python C:/path/to/notify.py done --edge"
-    }]
-  }]
-}
+```bash
+python scripts/notify.py done --edge     # 任务完成
+python scripts/notify.py confirm --edge  # 需要确认
+python scripts/notify.py perm --edge     # 权限请求
 ```
 
-## 🎯 支持的事件
-
-| 事件 | 参数 | 默认播报（中文） | 使用场景 |
-|------|------|----------------|---------|
-| 任务完成 | `done` | 搞定了，任务已完成。 | AI 完成任务时 |
-| 每日推送 | `daily` | 今日推送已就绪，来看看吧。 | 定时提醒 |
-| 待确认 | `confirm` | 需要你确认一下。 | 等待用户确认 |
-| 权限请求 | `perm` | 需要你的授权才能继续。 | 需要授权时 |
-| 紧急提醒 | `alert` | 请注意，一条重要的提醒。 | 重要通知 |
-| 处理中 | `thinking` | 正在处理中，请稍候。 | 长时间任务 |
+---
 
 ## ⚙️ 自定义配置（无需改代码）
 
@@ -96,7 +93,10 @@ python scripts/notify.py --generate-config
   "events": {
     "done":    { "voice": "✅ 任务搞定啦！" },
     "confirm":  { "voice": "⚠️ 等您确认哦～" },
-    "perm":     { "voice": "🔐 需要授权才能继续" }
+    "perm":     { "voice": "🔐 需要授权才能继续" },
+    "alert":    { "voice": "🚨 紧急提醒！" },
+    "daily":    { "voice": "☀️ 今日推送已就绪" },
+    "thinking": { "voice": "⏳ 稍等，正在处理中" }
   }
 }
 ```
@@ -137,25 +137,64 @@ python scripts/notify.py done --edge --lang en-US
 ```
 
 内置语言包：
-
 | 语言代码 | 语言 | 默认语音 |
 |---------|------|---------|
 | `zh-CN` | 中文 | 云希 (温柔男声) |
 | `en-US` | English | Yunxi (warm male) |
 
-## 📖 命令行完整用法
+---
+
+## 📦 安装到各类 AI Agent
+
+### WorkBuddy
+直接上传 `sound-notify.zip` 到技能页面，开箱即用。
+
+### Claude Code / Cursor / Windsurf / 任意 Agent
+任何能执行 shell 命令的地方都能调用：
+
+```bash
+python /path/to/scripts/notify.py done --edge
+```
+
+在你的 Agent 配置中，绑定以下事件：
+
+| Hook 事件 | 命令 |
+|-----------|------|
+| 任务完成 / Stop | `python notify.py done --edge` |
+| 权限请求 | `python notify.py perm --edge` |
+| 需要确认 | `python notify.py confirm --edge` |
+
+### 作为 Python 模块
+
+```python
+from notify import play_voice, play_beep_then_voice
+
+play_voice("done")                   # 离线人声
+play_beep_then_voice("perm", engine="edge")  # 在线人声
+```
+
+---
+
+## 🎛️ 命令行用法
 
 ```
-用法: notify.py <事件> [选项]
+python scripts/notify.py <事件> [选项]
 
-位置参数:
-  <事件>        done / daily / confirm / perm / alert / thinking / test / list
+事件:
+  done       任务完成
+  confirm    需要确认
+  perm       权限请求
+  alert      紧急提醒
+  daily      每日推送
+  thinking   处理中
+  test       测试所有声音
+  list       列出所有事件
 
 选项:
   --edge, -e              使用 Edge TTS 在线人声（推荐）
   --voice, -v             使用 Windows SAPI 离线人声
-  --voice-name NAME        指定 TTS 语音（如 zh-CN-YunyangNeural）
-  --lang LANG             语言: zh-CN (默认) / en-US
+  --voice-name NAME       指定 TTS 语音（如 zh-CN-YunyangNeural）
+  --lang LANG            语言: zh-CN (默认) / en-US
   --rate N                语速调节（正数加快，负数减慢）
   --loop N                重复播放 N 次
   --interval SEC          重复间隔（秒）
@@ -165,49 +204,97 @@ python scripts/notify.py done --edge --lang en-US
   --generate-config       生成示例配置文件
 ```
 
-## 🌟 可选语音列表
+---
 
-| 编号 | 语音代码 | 名称 | 性别 | 风格 |
-|------|----------|------|------|------|
-| 1 | zh-CN-YunxiNeural | 云希 | 男 | 温柔阳光（默认） |
-| 2 | zh-CN-YunyangNeural | 云扬 | 男 | 沉稳大气 |
-| 3 | zh-CN-YunyeNeural | 云野 | 男 | 轻松自然 |
-| 4 | zh-CN-YunhuNeural | 云虎 | 男 | 活力充沛 |
-| 5 | zh-CN-XiaoxiaoNeural | 晓晓 | 女 | 温柔甜美 |
-| 6 | zh-CN-XiaoyiNeural | 晓依 | 女 | 清澈灵动 |
-| 7 | zh-CN-XiaochenNeural | 晓辰 | 女 | 知性优雅 |
-| 8 | zh-CN-XiaomengNeural | 晓梦 | 女 | 俏皮可爱 |
+## 🗣️ 语音列表
 
-## 🔧 工作原理
+### 男声
 
-```mermaid
-sequenceDiagram
-    AI Agent->>Hook: 任务完成/需确认
-    Hook->>notify.py: 调用脚本
-    notify.py->>TTS Engine: 请求语音合成
-    alt 在线模式 (--edge)
-        TTS Engine->>Edge TTS: 调用微软神经语音 API
-        Edge TTS-->>notify.py: 返回 MP3 音频
-    else 离线模式 (--voice)
-        TTS Engine->>Windows SAPI: 调用系统语音合成
-        Windows SAPI-->>notify.py: 直接播放
-    end
-    notify.py->>Speaker: 播放音频
+| ID | 名称 | 风格 |
+|----|------|------|
+| `zh-CN-YunxiNeural` ⭐ | 云希 | 温暖阳光（默认） |
+| `zh-CN-YunyangNeural` | 云扬 | 专业可靠 |
+| `zh-CN-YunjianNeural` | 云健 | 激情活力 |
+| `zh-CN-YunxiaNeural` | 云夏 | 可爱少年 |
+
+### 女声
+
+| ID | 名称 | 风格 |
+|----|------|------|
+| `zh-CN-XiaoxiaoNeural` | 晓晓 | 温暖知性 |
+| `zh-CN-XiaoyiNeural` | 晓伊 | 活泼生动 |
+| `zh-CN-XiaohanNeural` | 晓涵 | 温柔文静 |
+| `zh-CN-XiaomoNeural` | 晓墨 | 知性成熟 |
+
+切换语音：
+```bash
+python scripts/notify.py done --edge --voice-name zh-CN-YunyangNeural
 ```
-
-## 🔍 故障排查
-
-| 问题 | 解决方案 |
-|------|---------|
-| Edge TTS 报错 | 检查网络连接，或改用 `--voice` 离线模式 |
-| SAPI 没有声音 | 检查 Windows 语音合成设置，选择"Microsoft Huihui..." |
-| 权限错误 | 以管理员身份运行命令行 |
-| 缓存占用空间 | 使用 `--no-cache` 参数清理 |
-
-## 📄 License
-
-MIT License — 自由使用、修改、分发。详见 [LICENSE](LICENSE) 文件。
 
 ---
 
-⭐ 如果这个项目对你有帮助，欢迎 Star 支持！
+## 🧠 工作原理
+
+```
+用户/AI 触发 → notify.py 接收事件
+                     ↓
+          ┌──────────┼──────────┐
+          ↓          ↓          ↓
+      Edge TTS    SAPI 离线   电子音
+     (在线生成)  (系统自带)  (winsound)
+          ↓          ↓          ↓
+        MP3 缓存 → Windows MCI 播放 → 🔈 出声
+```
+
+- **Edge TTS**：首次播放在线生成音频（~1秒），之后从缓存秒播
+- **SAPI**：调用 Windows 内置语音引擎，完全离线
+- **缓存**：`~/.workbuddy/sound-cache/` 目录，按文本+语音 hash 存储
+
+---
+
+## 📋 系统要求
+
+| 项目 | 最低要求 |
+|------|---------|
+| 操作系统 | Windows（使用 winsound 播报） |
+| Python | 3.6+ |
+| 网络 | Edge TTS 模式需要，SAPI 模式不需要 |
+
+> 💡 macOS / Linux 用户可以用 `--voice` 离线模式，但 SAPI 仅限 Windows。欢迎提 PR 添加跨平台支持！
+
+---
+
+## 🔧 故障排查
+
+| 问题 | 解决方案 |
+|------|---------|
+| 听不到人声 | 确认已安装 edge-tts: `pip install edge-tts` |
+| 首次播放慢 | 正常现象，首次需联网生成，之后有缓存 |
+| edge-tts 命令未找到 | 检查 Python Scripts 目录是否在 PATH 中 |
+| 想用默认语音 | 不加 `--edge`，直接用系统 beep 或 SAPI |
+
+---
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+如果想添加新的语音、新的事件类型、或跨平台支持，请先开 Issue 讨论。
+
+---
+
+## 📄 许可证
+
+[MIT License](LICENSE) — 自由使用、修改、分发。
+
+---
+
+## ⭐ Star History
+
+如果这个项目对你有帮助，请点个 Star ⭐
+
+---
+
+<p align="center">
+  Made with ❤️ for AI Agent users
+</p>
