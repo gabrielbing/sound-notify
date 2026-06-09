@@ -1,6 +1,6 @@
 # 🔊 Sound Notify
 
-> 一个零依赖的 Windows 声音提醒脚本 —— 任务完成、需要确认、权限请求时，用温柔的人声提醒你。
+> 一个用agent做任务时会有声音提醒脚本 —— 任务完成、需要确认、权限请求时，会用温柔的人声提醒你。
 
 [![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
