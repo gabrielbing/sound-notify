@@ -150,7 +150,7 @@ python scripts/notify.py done --edge --lang en-US
 
 ## 📦 安装到各类 AI Agent
 
-### WorkBuddy
+### All Agent
 直接上传 `sound-notify.zip` 到技能页面，开箱即用。
 
 ### Claude Code / Cursor / Windsurf / 任意 Agent
